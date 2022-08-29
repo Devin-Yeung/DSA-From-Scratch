@@ -1,5 +1,3 @@
-#include <limits.h>
-
 #ifndef ALGO_ARRAY_LIST_H
 #define ALGO_ARRAY_LIST_H
 

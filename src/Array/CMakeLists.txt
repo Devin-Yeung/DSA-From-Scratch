@@ -1,6 +1,7 @@
 add_library(libarray STATIC
         src/ArrayList.c
-        src/LinkedList.c)
+        src/LinkedList.c
+        src/DoubleLinkedList.c)
 # target_link_libraries(libarray PRIVATE libtypes)
 target_include_directories(libarray PUBLIC include)
 
@@ -11,7 +12,8 @@ enable_testing() # Necessary here!
 add_executable(
         Array_tests
         tests/ArrayList_tests.cpp
-)
+        tests/DoublyLinkedList_tests.cpp)
+
 target_link_libraries(
         Array_tests
         libarray
