@@ -1,7 +1,7 @@
 add_library(libarray STATIC
         src/ArrayList.c
         src/LinkedList.c
-        src/DoubleLinkedList.c)
+        src/DoublyLinkedList.c)
 # target_link_libraries(libarray PRIVATE libtypes)
 target_include_directories(libarray PUBLIC include)
 
