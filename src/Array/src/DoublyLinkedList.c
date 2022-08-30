@@ -47,14 +47,23 @@ void DoublyLinkedList_free(DoublyLinkedList **dll) {
  * @return
  */
 void *DoublyLinkedList_get(DoublyLinkedList *dll, unsigned index) {
-    // TODO: can improve performance
-    DoublyLinkedListNode *cur = dll->head->next;
     unsigned i = 0;
-    while (i < index) {
-        cur = cur->next;
-        i += 1;
+    if (index <= (dll->size / 2)) {
+        DoublyLinkedListNode *cur = dll->head->next;
+        while (i < index) {
+            cur = cur->next;
+            i += 1;
+        }
+        return cur->data;
+    } else {
+        DoublyLinkedListNode *cur = dll->tail->prev;
+        index = (dll->size - index - 1);
+        while (i < index) {
+            cur = cur->prev;
+            i += 1;
+        }
+        return cur->data;
     }
-    return cur->data;
 }
 
 void DoublyLinkedList_add_last(DoublyLinkedList *dll, void *elem) {

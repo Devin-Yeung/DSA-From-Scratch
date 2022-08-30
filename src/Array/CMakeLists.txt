@@ -23,3 +23,19 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(Array_tests)
+
+# benchmarking stuff
+
+# benchmarking the get method
+add_executable(
+        DoublyLinkedList_get_bench
+        benchmark/DoublyLinkedList_get_bench.cpp
+)
+
+target_link_libraries(
+        DoublyLinkedList_get_bench
+        libarray
+        libtypes
+        benchmark::benchmark
+        benchmark::benchmark_main
+)
