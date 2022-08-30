@@ -20,5 +20,14 @@ DoublyLinkedList *DoublyLinkedList_new(void(*destructor)(void *));
 
 void DoublyLinkedList_free(DoublyLinkedList **);
 
+void *DoublyLinkedList_get(DoublyLinkedList *, unsigned);
+
+void DoublyLinkedList_add_last(DoublyLinkedList *, void *);
+
+void DoublyLinkedList_add_first(DoublyLinkedList *, void *);
+
+void *DoublyLinkedList_remove_last(DoublyLinkedList *);
+
+void *DoublyLinkedList_remove_first(DoublyLinkedList *);
 
 #endif //DSA_FROM_SCRATCH_DOUBLYLINKEDLIST_H

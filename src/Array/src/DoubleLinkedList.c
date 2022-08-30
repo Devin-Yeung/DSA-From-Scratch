@@ -37,3 +37,114 @@ void DoublyLinkedList_free(DoublyLinkedList **dll) {
     // reset dll
     *dll = NULL;
 }
+
+/**
+ * SAFETY: the caller SHOULD NOT free the resource
+ * that callee returns, the doubly-linked-list still
+ * take its ownership
+ * @param dll the doubly-linked-list
+ * @param index the index of element you want to get
+ * @return
+ */
+void *DoublyLinkedList_get(DoublyLinkedList *dll, unsigned index) {
+    // TODO: can improve performance
+    DoublyLinkedListNode *cur = dll->head->next;
+    unsigned i = 0;
+    while (i < index) {
+        cur = cur->next;
+        i += 1;
+    }
+    return cur->data;
+}
+
+void DoublyLinkedList_add_last(DoublyLinkedList *dll, void *elem) {
+    DoublyLinkedListNode *new_node = malloc(sizeof(DoublyLinkedListNode));
+    // move the ownership of elem
+    new_node->data = elem;
+
+    DoublyLinkedListNode *front = dll->tail->prev;
+    DoublyLinkedListNode *back = dll->tail;
+
+    // front -> new_node
+    front->next = new_node;
+    // front <- new_node
+    new_node->prev = front;
+    // new_node <- back
+    back->prev = new_node;
+    // new_node -> back
+    new_node->next = back;
+    // front <-> new_node <-> back
+    dll->size += 1;
+}
+
+void DoublyLinkedList_add_first(DoublyLinkedList *dll, void *elem) {
+    DoublyLinkedListNode *new_node = malloc(sizeof(DoublyLinkedListNode));
+    // move the ownership of elem
+    new_node->data = elem;
+
+    DoublyLinkedListNode *front = dll->head;
+    DoublyLinkedListNode *back = dll->head->next;
+
+    // front -> new_node
+    front->next = new_node;
+    // front <- new_node
+    new_node->prev = front;
+    // new_node <- back
+    back->prev = new_node;
+    // new_node -> back
+    new_node->next = back;
+    // front <-> new_node <-> back
+    dll->size += 1;
+}
+
+/**
+ * SAFETY: the caller is responsible to free the data
+ * that callee returns
+ * @param dll the doubly-linked-list
+ * @return
+ */
+void *DoublyLinkedList_remove_last(DoublyLinkedList *dll) {
+    if (dll == NULL || dll->size == 0) {
+        // TODO: error handling
+        return NULL;
+    }
+
+    // Our Target:
+    // front <-> x <-> dummy_tail
+    // front <-> dummy_tail
+    DoublyLinkedListNode *to_be_removed = dll->tail->prev;
+    DoublyLinkedListNode *front = front = to_be_removed->prev;
+
+    // front <- dummy_tail
+    dll->tail->prev = front;
+    // front -> dummy_tail
+    front->next = dll->tail;
+    // take the data and free the node
+    void *data = to_be_removed->data;
+    free(to_be_removed);
+    dll->size -= 1;
+    return data;
+}
+
+void *DoublyLinkedList_remove_first(DoublyLinkedList *dll) {
+    if (dll == NULL || dll->size == 0) {
+        // TODO: error handling
+        return NULL;
+    }
+
+    // Our Target:
+    // dummy_head <-> to_be_removed <-> back
+    // dummy_head <-> back
+    DoublyLinkedListNode *to_be_removed = dll->head->next;
+    DoublyLinkedListNode *back = to_be_removed->next;
+
+    // dummy_head -> back
+    dll->head->next = back;
+    // dummy_head <- back
+    back->prev = dll->head;
+    // take the data and free the node
+    void *data = to_be_removed->data;
+    free(to_be_removed);
+    dll->size -= 1;
+    return data;
+}
