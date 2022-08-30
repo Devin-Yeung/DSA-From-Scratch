@@ -5,6 +5,7 @@ set(ASAN_COMPILE_TIME_FLAGS "-fsanitize=address -fsanitize-address-use-after-sco
 set(UBSAN_COMPILE_TIME_FLAGS "-fsanitize=undefined,integer,nullability -fno-sanitize=shift,shift-base,unsigned-shift-base")
 set(COVERAGE_FLAGS "-fprofile-instr-generate -fcoverage-mapping")
 set(DEBUG_FLAGS "-g -fno-omit-frame-pointer")
+set(BENCHMARK_ENABLE_TESTING OFF) # test cases in benchmark lib are not required
 
 set(CMAKE_C_FLAGS "${COVERAGE_FLAGS}")
 set(CMAKE_CXX_FLAGS "${COVERAGE_FLAGS}")
@@ -27,6 +28,8 @@ add_subdirectory(src/Types)
 
 # gtest
 add_subdirectory(lib/googletest)
+# benchmark
+add_subdirectory(lib/benchmark)
 
 
 add_executable(playground src/playground.c)
