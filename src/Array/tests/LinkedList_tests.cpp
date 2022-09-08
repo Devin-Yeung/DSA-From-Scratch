@@ -24,10 +24,10 @@ TEST(LinkedListBasic, TestDestructor) {
 TEST(LinkedListBasic, TestRemoveLast) {
     // Please check mem leak in sanitizer
     auto ll = LinkedList_new(int_destructor);
-    for (int i = 0; i <= 1e5; i++) {
+    for (int i = 0; i <= 2 << 12; i++) {
         LinkedList_add_last(ll, int_new(i));
     }
-    for (int i = 1e5; i >= 0; i--) {
+    for (int i = 2 << 12; i >= 0; i--) {
         auto num = (Integer*)LinkedList_remove_last(ll);
         EXPECT_EQ(num->val, i);
     }
