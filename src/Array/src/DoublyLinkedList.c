@@ -16,15 +16,15 @@ DoublyLinkedList *DoublyLinkedList_new(void(*destructor)(void *)) {
     dummy_tail->prev = dummy_head;
 
     dll->size = 0;
-    dll->head = dummy_head;
-    dll->tail = dummy_tail;
+    dll->dummy_head = dummy_head;
+    dll->dummy_tail = dummy_tail;
     dll->destructor = destructor;
 
     return dll;
 }
 
 void DoublyLinkedList_free(DoublyLinkedList **dll) {
-    DoublyLinkedListNode *cur = (*dll)->head;
+    DoublyLinkedListNode *cur = (*dll)->dummy_head;
     do {
         DoublyLinkedListNode *next = cur->next;
         // destruct the data
@@ -49,14 +49,14 @@ void DoublyLinkedList_free(DoublyLinkedList **dll) {
 void *DoublyLinkedList_get(DoublyLinkedList *dll, unsigned index) {
     unsigned i = 0;
     if (index <= (dll->size / 2)) {
-        DoublyLinkedListNode *cur = dll->head->next;
+        DoublyLinkedListNode *cur = dll->dummy_head->next;
         while (i < index) {
             cur = cur->next;
             i += 1;
         }
         return cur->data;
     } else {
-        DoublyLinkedListNode *cur = dll->tail->prev;
+        DoublyLinkedListNode *cur = dll->dummy_tail->prev;
         index = (dll->size - index - 1);
         while (i < index) {
             cur = cur->prev;
@@ -71,8 +71,8 @@ void DoublyLinkedList_add_last(DoublyLinkedList *dll, void *elem) {
     // move the ownership of elem
     new_node->data = elem;
 
-    DoublyLinkedListNode *front = dll->tail->prev;
-    DoublyLinkedListNode *back = dll->tail;
+    DoublyLinkedListNode *front = dll->dummy_tail->prev;
+    DoublyLinkedListNode *back = dll->dummy_tail;
 
     // front -> new_node
     front->next = new_node;
@@ -91,8 +91,8 @@ void DoublyLinkedList_add_first(DoublyLinkedList *dll, void *elem) {
     // move the ownership of elem
     new_node->data = elem;
 
-    DoublyLinkedListNode *front = dll->head;
-    DoublyLinkedListNode *back = dll->head->next;
+    DoublyLinkedListNode *front = dll->dummy_head;
+    DoublyLinkedListNode *back = dll->dummy_head->next;
 
     // front -> new_node
     front->next = new_node;
@@ -121,13 +121,13 @@ void *DoublyLinkedList_remove_last(DoublyLinkedList *dll) {
     // Our Target:
     // front <-> x <-> dummy_tail
     // front <-> dummy_tail
-    DoublyLinkedListNode *to_be_removed = dll->tail->prev;
+    DoublyLinkedListNode *to_be_removed = dll->dummy_tail->prev;
     DoublyLinkedListNode *front = front = to_be_removed->prev;
 
     // front <- dummy_tail
-    dll->tail->prev = front;
+    dll->dummy_tail->prev = front;
     // front -> dummy_tail
-    front->next = dll->tail;
+    front->next = dll->dummy_tail;
     // take the data and free the node
     void *data = to_be_removed->data;
     free(to_be_removed);
@@ -144,13 +144,13 @@ void *DoublyLinkedList_remove_first(DoublyLinkedList *dll) {
     // Our Target:
     // dummy_head <-> to_be_removed <-> back
     // dummy_head <-> back
-    DoublyLinkedListNode *to_be_removed = dll->head->next;
+    DoublyLinkedListNode *to_be_removed = dll->dummy_head->next;
     DoublyLinkedListNode *back = to_be_removed->next;
 
     // dummy_head -> back
-    dll->head->next = back;
+    dll->dummy_head->next = back;
     // dummy_head <- back
-    back->prev = dll->head;
+    back->prev = dll->dummy_head;
     // take the data and free the node
     void *data = to_be_removed->data;
     free(to_be_removed);

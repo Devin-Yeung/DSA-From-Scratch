@@ -10,8 +10,8 @@ typedef struct DoublyLinkedListNode {
 
 typedef struct DoublyLinkedList {
     unsigned int size;
-    DoublyLinkedListNode *head;
-    DoublyLinkedListNode *tail;
+    DoublyLinkedListNode *dummy_head;
+    DoublyLinkedListNode *dummy_tail;
 
     void (*destructor)(void *);
 } DoublyLinkedList;
