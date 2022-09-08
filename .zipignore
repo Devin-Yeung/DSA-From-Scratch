@@ -1,6 +1,8 @@
+/.git
 /Testing
 /build
 /cmake-build-debug
+/lib
 /.idea
 .DS_Store
 default.profraw
