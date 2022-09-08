@@ -40,3 +40,38 @@ void LinkedList_add_last(LinkedList *ll, void *data) {
     ll->tail = node;
     ll->size += 1;
 }
+
+/**
+ * SAFETY: the caller is responsible to free
+ * the object that callee returns
+ * @param ll the linked-list
+ * @param index the index of elem to be removed
+ * @return the been removed
+ */
+void *LinkedList_remove(LinkedList *ll, unsigned index) {
+    if (index >= ll->size) {
+        // TODO: Error Handling
+        return NULL;
+    }
+    // prev -> to_be_removed -> next
+    LinkedListNode *prev = ll->dummy_head;
+    for (unsigned i = 0; i < index; i++) {
+        prev = prev->next;
+    }
+    LinkedListNode *to_be_removed = prev->next;
+    prev->next = to_be_removed->next;
+    void *data = to_be_removed->data;
+    free(to_be_removed);
+    ll->size -= 1;
+    return data;
+}
+
+/**
+ * SAFETY: the caller is responsible to free
+ * the object that callee returns
+ * @param ll the linked-list
+ * @return the data been removed
+ */
+void *LinkedList_remove_last(LinkedList *ll) {
+    return LinkedList_remove(ll, ll->size - 1);
+}

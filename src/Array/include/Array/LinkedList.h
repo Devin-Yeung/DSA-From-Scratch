@@ -21,5 +21,8 @@ void LinkedList_free(LinkedList **);
 
 void LinkedList_add_last(LinkedList *, void *);
 
+void *LinkedList_remove_last(LinkedList *);
+
+void *LinkedList_remove(LinkedList *, unsigned);
 
 #endif //DSA_FROM_SCRATCH_LINKEDLIST_H
