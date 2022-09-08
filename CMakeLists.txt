@@ -23,6 +23,7 @@ unset(USE_SAN CACHE) # <---- important! (clearing the option from within CMakeLi
 
 # sub dir
 add_subdirectory(src/Array)
+add_subdirectory(src/Stack)
 add_subdirectory(src/Tree)
 add_subdirectory(src/Types)
 
