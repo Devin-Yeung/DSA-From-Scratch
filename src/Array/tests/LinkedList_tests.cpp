@@ -15,7 +15,7 @@ TEST(LinkedListBasic, TestDestructor) {
     // Please check mem leak in sanitizer
     auto ll = LinkedList_new(int_destructor);
     for (int i = 0; i < 1e5; i++) {
-        LinkedList_add(ll, int_new(i));
+        LinkedList_add_last(ll, int_new(i));
     }
     LinkedList_free(&ll);
     EXPECT_EQ(ll, nullptr);

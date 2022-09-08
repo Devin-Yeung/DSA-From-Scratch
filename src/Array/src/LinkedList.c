@@ -31,7 +31,7 @@ void LinkedList_free(LinkedList **ll) {
     (*ll) = NULL;
 }
 
-void LinkedList_add(LinkedList *ll, void *data) {
+void LinkedList_add_last(LinkedList *ll, void *data) {
     LinkedListNode *node = malloc(sizeof(LinkedListNode));
     node->data = data;
     node->next = NULL;

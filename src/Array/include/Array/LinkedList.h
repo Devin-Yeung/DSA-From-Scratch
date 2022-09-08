@@ -19,7 +19,7 @@ LinkedList *LinkedList_new(void(*)(void *));
 
 void LinkedList_free(LinkedList **);
 
-void LinkedList_add(LinkedList *, void *);
+void LinkedList_add_last(LinkedList *, void *);
 
 
 #endif //DSA_FROM_SCRATCH_LINKEDLIST_H
