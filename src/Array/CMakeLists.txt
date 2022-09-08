@@ -12,7 +12,9 @@ enable_testing() # Necessary here!
 add_executable(
         Array_tests
         tests/ArrayList_tests.cpp
-        tests/DoublyLinkedList_tests.cpp)
+        tests/LinkedList_tests.cpp
+        tests/DoublyLinkedList_tests.cpp
+)
 
 target_link_libraries(
         Array_tests
