@@ -41,3 +41,17 @@ target_link_libraries(
         benchmark::benchmark
         benchmark::benchmark_main
 )
+
+# benchmarking the remove_last method
+add_executable(
+        LinkedList_remove_last_bench
+        benchmark/LinkedList_remove_last_bench.cpp
+)
+
+target_link_libraries(
+        LinkedList_remove_last_bench
+        libarray
+        libtypes
+        benchmark::benchmark
+        benchmark::benchmark_main
+)
