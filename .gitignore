@@ -5,3 +5,5 @@
 .DS_Store
 default.profraw
 *.zip
+.cache
+compile_commands.json
